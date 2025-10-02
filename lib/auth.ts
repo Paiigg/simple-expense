@@ -39,23 +39,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    authorized: async ({ auth, request: { nextUrl } }) => {
-      // Logged in users are authenticated, otherwise redirect to login page
-      const isLoggedIn = !!auth?.user;
-      const portectedRoutes = [
-        "/dashboard",
-        "/dashboard/income",
-        "/dashboard/expense",
-      ];
-
-      if (!isLoggedIn && portectedRoutes.includes(nextUrl.pathname)) {
-        return Response.redirect(new URL("/login", nextUrl));
-      }
-      if (isLoggedIn && nextUrl.pathname.startsWith("/login")) {
-        return Response.redirect(new URL("/dashboard", nextUrl));
-      }
-      return true;
-    },
     jwt({ token, user }) {
       return token;
     },
