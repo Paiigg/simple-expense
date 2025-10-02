@@ -25,6 +25,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: { email },
         });
 
+        
+
         if (!user || !user.password) {
           throw new Error("No user found.");
         }
